@@ -26,16 +26,25 @@ class AnbimaBot():
         if self.page.find_all("tr") == []: return
 
         csv_writer =  csv.writer(open(f"history/{self.dateURL}.txt", 'w', encoding="utf-8"))
-        for tr in self.page.find_all("tr"):
-            data = []
+        # for tr in self.page.find_all("tr"):
+        #     data = []
 
-            for td in tr.find_all("td"):
-                data.append(td.text)
+        #     for td in tr.find_all("td"):
+        #         data.append(td.text)
 
-            if data:
-                print("{}".format(",".join(data)))
-                csv_writer.writerow(data)
-                continue
+        #     if data:
+        #         # print("{}".format(",".join(data)))
+        #         csv_writer.writerow(data)
+        #         continue
+
+        tr = self.page.find_all("tr")[2]
+        data = []
+        
+        for td in tr.find_all("td"):
+            data.append(td.text)
+        if data:
+            print("{}".format(",".join(data)))
+            csv_writer.writerow(data)
 
     def __str__(self):
         return f"{self.name}\n{self.link}"

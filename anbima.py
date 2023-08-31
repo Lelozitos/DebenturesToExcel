@@ -23,6 +23,8 @@ class AnbimaBot():
         return self.today - timedelta(days = days)
 
     def tableToCSV(self):
+        if self.page.find_all("tr") == []: return
+
         csv_writer =  csv.writer(open(f"history/{self.dateURL}.txt", 'w', encoding="utf-8"))
         for tr in self.page.find_all("tr"):
             data = []
@@ -30,7 +32,7 @@ class AnbimaBot():
             for td in tr.find_all("td"):
                 data.append(td.text)
 
-            if(data):
+            if data:
                 print("{}".format(",".join(data)))
                 csv_writer.writerow(data)
                 continue

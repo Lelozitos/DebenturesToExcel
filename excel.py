@@ -8,25 +8,19 @@ class ExcelConverter:
 
     @staticmethod
     def convertOne():
-        workbook = Workbook("excel.xlsx")
+        excelName = "debentures.xlsx"
+        workbook = Workbook(excelName)
         os.chdir("./history")
 
         for fileName in reversed(os.listdir()):
             with open(fileName, "r", encoding="utf-8") as file:
-                # # for i in enumerate(file):
-                # for i in range(sum(1 for _ in file)):   # gets total lines in file
-                #     line = file.readline()
-                #     if i > 27:
-                #         print(line)
-
                 for i in range(27): # removes initial rubbish
                     file.readline()
 
                 lines = file.read().splitlines()
-                # for line in file.read().splitlines():
-                #     print(line)
             
-            headers = ("Código", "Nome", "Vencimento", "Índice", "Taxa de Compra", "Taxa de Venda", "Taxa Indicativa", "Desvio Padrão", "Inter. Indic. • Mínimo", "Inter. Indic. • Máximo", "PU", "% PU Par", "Duration", "% Reune")
+            # headers = ("Código", "Nome", "Vencimento", "Índice", "Taxa de Compra", "Taxa de Venda", "Taxa Indicativa", "Desvio Padrão", "Inter. Indic. • Mínimo", "Inter. Indic. • Máximo", "PU", "% PU Par", "Duration", "% Reune")
+            headers = ("Código", "Nome", "Vencimento", "Índice", "Taxa Indicativa", "Duration")
             data = []
 
             # temp = {
@@ -57,32 +51,39 @@ class ExcelConverter:
                     case 2:
                         temp["Vencimento"] = line
                     case 3:
-                        temp["Índice"] = line
+                        temp["Índice"] = line[:-6]
                     case 4:
-                        temp["Taxa de Compra"] = line
+                        # temp["Taxa de Compra"] = line
+                        pass
                     case 5:
-                        temp["Taxa de Venda"] = line
+                        # temp["Taxa de Venda"] = line
+                        pass
                     case 6:
-                        temp["Taxa Indicativa"] = line
+                        temp["Taxa Indicativa"] = float(line.replace(",", ".")) or "N/D"
                     case 7:
-                        temp["Desvio Padrão"] = line
+                        # temp["Desvio Padrão"] = line
+                        pass
                     case 8:
-                        temp["Inter. Indic. • Mínimo"] = line
+                        # temp["Inter. Indic. • Mínimo"] = line
+                        pass
                     case 9:
-                        temp["Inter. Indic. • Máximo"] = line
+                        # temp["Inter. Indic. • Máximo"] = line
+                        pass
                     case 10:
-                        temp["PU"] = line
+                        # temp["PU"] = line
+                        pass
                     case 11:
-                        temp["% PU Par"] = line
+                        # temp["% PU Par"] = line
+                        pass
                     case 12:
                         temp["Duration"] = line
                     case 13:
-                        temp["% Reune"] = line
+                        # temp["% Reune"] = line
                         data.append(temp)
                     case other: # blank spaces between 2 items
                         pass
             
-            print(data)
+            # print(data)
             worksheet = workbook.add_worksheet(fileName[:-4])   # create worksheet in excel for this file
 
             for index, header in enumerate(headers):    # populate header
@@ -96,3 +97,4 @@ class ExcelConverter:
 
         os.chdir("../")
         workbook.close()
+        print(f"Created Excel file named {excelName}")

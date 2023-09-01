@@ -43,8 +43,10 @@ class AnbimaBot():
         for td in tr.find_all("td"):
             data.append(td.text)
         if data:
-            print("{}".format(",".join(data)))
+            # print("{}".format(",".join(data)))
             csv_writer.writerow(data)
+        
+        print(f"Finished passing day {self.dateURL} to CSV")
 
     def __str__(self):
         return f"{self.name}\n{self.link}"

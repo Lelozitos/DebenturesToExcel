@@ -8,9 +8,9 @@ from excel import ExcelConverter
 
 # bot.tableToCSV() # creates file in /history
 
-# for i in range(8): # latest anbima date
-#     bot = AnbimaBot(i)
-#     bot.tableToCSV()
+for i in range(8): # latest anbima date
+    bot = AnbimaBot(i)
+    bot.tableToCSV()
 
 # bot.headerToArray()
 # bot.tableToArray()
